@@ -13,7 +13,13 @@
         android:theme="@style/Theme.ImageSharingApp"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".views.UploadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.FeedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
