@@ -1,5 +1,6 @@
 package com.berkaysenkoylu.imagesharingapp.adapters;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.berkaysenkoylu.imagesharingapp.databinding.FeedRowBinding;
 import com.berkaysenkoylu.imagesharingapp.models.Post;
+import com.berkaysenkoylu.imagesharingapp.views.FeedActivity;
+import com.berkaysenkoylu.imagesharingapp.views.FeedDetail;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -39,6 +42,15 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedRowHolder>
         if (position == this.postList.size() - 1) {
             holder.feedRowBinding.feedRowDivider.setVisibility(View.GONE);
         }
+
+        holder.feedRowBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(holder.itemView.getContext(), FeedDetail.class);
+                intent.putExtra("post", post);
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

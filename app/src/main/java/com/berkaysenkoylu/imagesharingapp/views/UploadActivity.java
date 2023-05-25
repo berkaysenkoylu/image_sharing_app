@@ -120,6 +120,7 @@ public class UploadActivity extends AppCompatActivity {
                                 newEntry.put("email", email);
                                 newEntry.put("comment", comment);
                                 newEntry.put("imageUrl", downloadUrl);
+                                newEntry.put("userId", currentUser.getUid());
                                 newEntry.put("date", FieldValue.serverTimestamp());
 
                                 firebaseFirestore.collection("Posts").add(newEntry).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

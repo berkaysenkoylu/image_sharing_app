@@ -22,6 +22,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -36,6 +37,8 @@ public class FeedActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private ArrayList<Post> postList;
     private FeedAdapter feedAdapter;
+
+    ListenerRegistration listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +62,11 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     private void getInitialData() {
-        firebaseFirestore.collection("Posts").orderBy("date", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        listener = firebaseFirestore.collection("Posts").orderBy("date", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error != null) {
+                    System.out.println("HEY LISTEN");
                     Toast.makeText(FeedActivity.this, "Something went wrong while fetching the data!", Toast.LENGTH_SHORT).show();
                 } else {
                     for(DocumentSnapshot document : value.getDocuments()) {
@@ -71,6 +75,7 @@ public class FeedActivity extends AppCompatActivity {
                                 document.get("email").toString(),
                                 document.get("comment").toString(),
                                 document.get("imageUrl").toString(),
+                                document.get("userId").toString(),
                                 document.getDate("date")
                         );
                         postList.add(post);
@@ -92,6 +97,7 @@ public class FeedActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.toolbar_logout) {
             if (auth.getCurrentUser() != null) {
+                listener.remove();
                 auth.signOut();
                 finish();
 
