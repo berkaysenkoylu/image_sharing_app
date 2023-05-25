@@ -11,6 +11,7 @@
         android:layout_width="212dp"
         android:layout_height="212dp"
         android:layout_marginTop="64dp"
+        android:contentDescription="selectedImage"
         android:onClick="onImageSelectPressedHandler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,7 +19,7 @@
         app:srcCompat="@drawable/image_select_placeholder" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/commentTextView"
         android:layout_width="316dp"
         android:layout_height="68dp"
         android:layout_marginTop="32dp"
@@ -39,5 +40,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintTop_toBottomOf="@+id/commentTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
